@@ -5,8 +5,8 @@
 main:
 
   bl center_dot
-  bl timer
-  bl timer
+  bl slower_timer
+  bl slower_timer
   bl diamond
   bl heart
   bl sparkle
@@ -26,18 +26,18 @@ center_dot:
   push {lr} 
   nop
   ldr r4, = 0x50000000
-  mov r0, 0x514 @ 0x50000000 DIR ->
+  mov r0, 0x514  
   mov r1, 31
-  bl set_bit 
+  bl high_bit 
 
   mov r1, 15
-  bl set_bit
+  bl high_bit
 
   nop
-  mov r0,0x504 @ 0x50000000 OUT -> 
+  mov r0,0x504  
 
   mov r1, 15
-  bl set_bit
+  bl high_bit
 
   pop {lr}
 bx lr
@@ -47,31 +47,31 @@ bx lr
 wave:
   push {lr}
 
-  bl timer
+  bl slower_timer
   bl col1_15
-  bl timer
+  bl slower_timer
   bl col2_24
-  bl timer
+  bl slower_timer
   bl col3_345
-  bl timer
+  bl slower_timer
   bl col4_24
-  bl timer
+  bl slower_timer
   bl col5_15
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
 
-  bl timer 
+  bl slower_timer 
   bl col5_15
-  bl timer
+  bl slower_timer
   bl col4_242
-  bl timer
+  bl slower_timer
   bl col3_3
-  bl timer
+  bl slower_timer
   bl col2_24
-  bl timer
+  bl slower_timer
   bl col1_15
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
 
   pop {lr}
 
@@ -80,39 +80,39 @@ bx lr
 triangle:
   push {lr}
 
- bl timer
+ bl slower_timer
   bl col5_12345
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
   bl col4_234
-  bl timer
-  bl clear_bit  
+  bl slower_timer
+  bl low_bit  
   bl col3_3
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
   bl col2_234
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
   bl col1_12345
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
 
-  bl timer
+  bl slower_timer
   bl col1_12345
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
   bl col2_234
-  bl timer
-  bl clear_bit  
+  bl slower_timer
+  bl low_bit  
   bl col3_3
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
   bl col4_234
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
   bl col5_12345
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
 
   pop {lr}
   nop
@@ -121,31 +121,31 @@ bx lr
 @ Diamond (flashing & displaying)
 diamond: 
   push {lr}
-  bl clear_bit
+  bl low_bit
   bl col1_3
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col2_234
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col3_12345
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col4_234
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col5_3
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
 
-  bl diamond_Timer @displays Diamond
-  bl medium_Timer
-  bl clear_bit
+  bl diamond_timer @displays diamond
+  bl intermediate_timer
+  bl low_bit
 
   pop {lr}
 bx lr
@@ -154,77 +154,77 @@ bx lr
 @ Heart (flashing & displaying)
 heart: 
   push {lr}
-  bl clear_bit
+  bl low_bit
   bl col5_23
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col4_1234
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col3_2345
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col2_1234
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   bl col1_234
-  bl medium_Timer
-  bl clear_bit
-  bl medium_Timer
+  bl intermediate_timer
+  bl low_bit
+  bl intermediate_timer
   
-  bl heart_Timer @displays heart
-  bl medium_Timer
-  bl clear_bit
+  bl heart_timer @displays heart
+  bl intermediate_timer
+  bl low_bit
   
   pop {lr}
 bx lr
 
 
-@3-2-3-2-3 flash animation
+@sparkling 
 sparkle:
   push {lr}
-  bl clear_bit
-  bl small_Timer
+  bl low_bit
+  bl faster_timer
   bl col1_135
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col2_24
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col3_135
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col4_24
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col5_135
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col5_24
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col4_135
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col3_24
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col2_135
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col1_24
 
   pop {lr}
@@ -235,21 +235,21 @@ bx lr
 firework:
   push {lr}
   bl center_dot
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col2_24
   bl col4_24
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   bl col1_15
   bl col5_15
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
-  bl clear_bit
-  bl small_Timer
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
+  bl low_bit
+  bl faster_timer
   
   pop {lr}
 bx lr
@@ -260,20 +260,20 @@ cross:
   push {lr}
   bl col1_15
   bl col5_15
-  bl timer
+  bl slower_timer
   bl col3_24
   bl col4_24
-  bl timer
+  bl slower_timer
   bl col1_15
-  bl timer
+  bl slower_timer
   bl col1_12345
   bl col2_234
   bl col3_3
   bl col4_234
   bl col5_12345
-  bl timer
-  bl clear_bit
-  bl timer
+  bl slower_timer
+  bl low_bit
+  bl slower_timer
 
   pop {lr}
 bx lr
@@ -284,29 +284,29 @@ graduation_square:
   push {lr}
 
   bl col1_12345
-  bl timer
+  bl slower_timer
   bl col2_234
-  bl timer  
+  bl slower_timer  
   bl col3_3
-  bl timer
+  bl slower_timer
   bl col4_234
-  bl timer
+  bl slower_timer
   bl col5_12345
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
 
-  bl timer
+  bl slower_timer
   bl col5_12345
-  bl timer
+  bl slower_timer
   bl col4_234
-  bl timer
+  bl slower_timer
   bl col3_3
-  bl timer
+  bl slower_timer
   bl col2_234
-  bl timer
+  bl slower_timer
   bl col1_12345
-  bl timer
-  bl clear_bit
+  bl slower_timer
+  bl low_bit
 
   pop {lr}
   nop
@@ -321,80 +321,80 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 28
-    bl set_bit
+    bl high_bit
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
     
     pop {lr}
   bx lr
 
   col1_15:  @(Col1 / Row 1,5)
-    push {lr}  @Linking back to bl in wave
+    push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 28
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
-    pop {lr} @Linking back to bl in sequence_1
+    pop {lr}
   bx lr
 
     col1_135: @(Col1 / Row 1,3,5)
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 28
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -403,20 +403,20 @@ bx lr
     push {lr} 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 28
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -425,20 +425,20 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 28
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -447,16 +447,16 @@ bx lr
     push {lr} 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 28
-    bl set_bit 
+    bl high_bit 
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -469,45 +469,45 @@ bx lr
   col2_234: 
     push {lr}
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 11
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
-    mov r0,0x504 @ 0x50000000 OUT ->
+    bl high_bit
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
 
 @(Col2 / Row 2,4)
   col2_24: 
-    push {lr}  @Linking back to bl in wave
+    push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 11
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -516,24 +516,24 @@ bx lr
     push {lr} 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 11
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
   
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -542,28 +542,28 @@ bx lr
     push {lr} 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 11
-    bl set_bit
+    bl high_bit
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -577,82 +577,82 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 31
-    bl set_bit 
+    bl high_bit 
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
 
   col3_345: @(Col3 / Row 3,4,5)
-    push {lr}  @Linking back to bl in wave
+    push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 31
-    bl set_bit 
+    bl high_bit 
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
-    pop {lr} @Linking back to bl in sequence_1
+    pop {lr} 
   bx lr
   
   col3_24: @(Col3 / Row 2,4)
-    push {lr}  @Linking back to bl in sequence_1
+    push {lr} 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 11
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
-    pop {lr} @Linking back to bl in sequence_1
+    pop {lr}
   bx lr
 
   col3_135: @(Col3 / Row 1,3,5)
     push {lr}  
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 31
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -661,32 +661,32 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 31
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -695,28 +695,28 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 31
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -729,27 +729,27 @@ bx lr
   col4_234: 
     push {lr}
     nop
-    ldr r4, = 0x50000300 @ 0x50000300 DIR 5
+    ldr r4, = 0x50000300  
     mov r0, 0x514
     mov r1, 5
-    bl set_bit
+    bl high_bit
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -758,52 +758,52 @@ bx lr
 
     push {lr}
     nop
-    ldr r4, = 0x50000300 @ 0x50000300 DIR 5
+    ldr r4, = 0x50000300  
     mov r0, 0x514
     mov r1, 5
-    bl set_bit
+    bl high_bit
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 11
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
   
-  col4_242: @(Col4 / Row 2,4) 건들이지 말기
+  col4_242: @(Col4 / Row 2,4)
 
     push {lr}
     nop
-    ldr r4, = 0x50000300 @ 0x50000300 DIR 5
+    ldr r4, = 0x50000300  
     mov r0, 0x514
     mov r1, 05
-    bl set_bit
+    bl high_bit
 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -811,29 +811,29 @@ bx lr
   col4_135: @(Col4 / Row 1,3,5)
     push {lr}
     nop
-    ldr r4, = 0x50000300 @ 0x50000300 DIR 5
+    ldr r4, = 0x50000300  
     mov r0, 0x514
     mov r1, 05
-    bl set_bit
+    bl high_bit
 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -841,33 +841,33 @@ bx lr
   col4_1234: @(Col4 / Row 1,2,3,4)
     push {lr}
     nop
-    ldr r4, = 0x50000300 @ 0x50000300 DIR 5
+    ldr r4, = 0x50000300  
     mov r0, 0x514
     mov r1, 05
-    bl set_bit
+    bl high_bit
 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
   
     pop {lr} 
   bx lr
@@ -881,32 +881,32 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 30
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -915,20 +915,20 @@ bx lr
     push {lr}  
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 30
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -937,24 +937,24 @@ bx lr
     push {lr} 
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 30
-    bl set_bit 
+    bl high_bit 
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 21
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
     mov r1, 19
-    bl set_bit
+    bl high_bit
 
     pop {lr} 
   bx lr
@@ -963,20 +963,20 @@ bx lr
     push {lr}  
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 30
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT ->
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 24
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -985,16 +985,16 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 30
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -1003,20 +1003,20 @@ bx lr
     push {lr}
     nop
     ldr r4, = 0x50000000
-    mov r0, 0x514 @ 0x50000000 DIR ->
+    mov r0, 0x514  
     mov r1, 30
-    bl set_bit 
+    bl high_bit 
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     nop
-    mov r0,0x504 @ 0x50000000 OUT -> 
+    mov r0,0x504  
     mov r1, 22
-    bl set_bit
+    bl high_bit
     mov r1, 15
-    bl set_bit
+    bl high_bit
 
     pop {lr}
   bx lr
@@ -1024,43 +1024,42 @@ bx lr
 
 
 
-@Delay timer
-
-small_Timer:
+@hold_up slower_timers
+faster_timer:
   push {lr}
   ldr r9, =550000
-  bl delay
+  bl hold_up
   pop {lr}
 bx lr
 
-medium_Timer:
+intermediate_timer:
   push {lr}
   ldr r9, =800000
-  bl delay
+  bl hold_up
   pop {lr}
 bx lr
 
-timer:
+slower_timer:
   push {lr}
   ldr r9, =1000000
-  bl delay
+  bl hold_up
   pop {lr}
 bx lr
 
-delay:
+hold_up:
   sub r9, r9, 1
   cmp r9, 0
-  bne delay
+  bne hold_up
 bx lr
 
-diamond_Timer:
+diamond_timer:
   push {lr}
   ldr r9, =24000
   bl diamond_pic
   pop {lr}
 bx lr
 
-heart_Timer:
+heart_timer:
   push {lr}
   ldr r9, =24000
   bl heart_pic
@@ -1070,20 +1069,19 @@ bx lr
 
 
 @Continous Loop for displaying the shape
-
 diamond_pic:
   push {lr}
   subs r9, r9, #1
   bl col1_3
-  bl clear_bit
+  bl low_bit
   bl col2_234
-  bl clear_bit
+  bl low_bit
   bl col3_12345
-  bl clear_bit
+  bl low_bit
   bl col4_234
-  bl clear_bit
+  bl low_bit
   bl col5_3
-  bl clear_bit
+  bl low_bit
   cmp r9, 0
   bne diamond_pic
 
@@ -1094,15 +1092,15 @@ heart_pic:
   push {lr}
   subs r9, r9, #1
   bl col1_234
-  bl clear_bit
+  bl low_bit
   bl col2_1234
-  bl clear_bit
+  bl low_bit
   bl col3_2345
-  bl clear_bit
+  bl low_bit
   bl col4_1234
-  bl clear_bit
+  bl low_bit
   bl col5_23
-  bl clear_bit
+  bl low_bit
   cmp r9, 0
   bne heart_pic
 
@@ -1110,13 +1108,12 @@ heart_pic:
 bx lr
 
 
- @Sets a bit both DIR and OUT to high
-
-set_bit:
+@Sets a bit both DIR and OUT to high
+high_bit:
   @r0: offset of address
   @r1: the pin to set to high
   @r3: the pin already set to high
-  @r4: base address of pin
+  @r4: base address of the GPIO
   @r5: store bit 1 into register
   
   push {lr}
@@ -1130,14 +1127,10 @@ set_bit:
 bx lr
 
 
-@Clears entire board by pushing 0 into address
-
-clear_bit:
-  @r0: offset of address
-  @r1: the pin to set to high
-  @r3: the pin already set to high
-  @r4: base address of pin
-  @r5: store bit 1 into register
+@Sets a bit both DIR and OUT to low
+low_bit:
+  @r4: base address of the GPIO
+  @r10: store bit 0 into register
   
   push {lr}
   mov r10, 0
